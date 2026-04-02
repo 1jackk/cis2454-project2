@@ -1,13 +1,13 @@
-<?php require 'db.php'; ?>
 <!DOCTYPE html>
 <html>
 <head><title>Registration Database</title></head>
 <body>
 <h1>Registration Database</h1>
-<a href="course.php">Courses</a><br>
-<a href="faculty.php">Faculty</a><br>
-<a href="student.php">Students</a><br>
-<a href="section.php">Sections</a><br>
-<a href="enrollment.php">Enrollments</a>
+<a href="views/courses.php">Courses</a><br>
+<a href="views/faculty.php">Faculty</a><br>
+<a href="views/students.php">Students</a><br>
+<a href="views/sections.php">Sections</a><br>
+<a href="views/enrollments.php">Enrollments</a>
 </body>
 </html>
+ 
