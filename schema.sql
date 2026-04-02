@@ -1,46 +1,45 @@
 CREATE DATABASE IF NOT EXISTS registration;
 USE registration;
-
+ 
+CREATE TABLE IF NOT EXISTS student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    major VARCHAR(100) NOT NULL
+);
+ 
 CREATE TABLE IF NOT EXISTS course (
-    course_id INT AUTO_INCREMENT PRIMARY KEY,
-    course_name VARCHAR(100) NOT NULL,
+    code VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
     credits INT NOT NULL
 );
-
+ 
 CREATE TABLE IF NOT EXISTS faculty (
-    faculty_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    department VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS student (
-    student_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL
 );
-
+ 
 CREATE TABLE IF NOT EXISTS section (
-    section_id INT AUTO_INCREMENT PRIMARY KEY,
-    course_id INT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_code VARCHAR(10) NOT NULL,
     faculty_id INT NOT NULL,
     semester VARCHAR(20) NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES course(course_id),
-    FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id)
+    FOREIGN KEY (course_code) REFERENCES course(code),
+    FOREIGN KEY (faculty_id) REFERENCES faculty(id)
 );
-
+ 
 CREATE TABLE IF NOT EXISTS enrollment (
-    enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
     section_id INT NOT NULL,
     grade VARCHAR(2),
-    FOREIGN KEY (student_id) REFERENCES student(student_id),
-    FOREIGN KEY (section_id) REFERENCES section(section_id)
+    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (section_id) REFERENCES section(id)
 );
-
-INSERT INTO course (course_name, credits) VALUES ('Intro to Computer Science', 3), ('Calculus I', 4);
-INSERT INTO faculty (first_name, last_name, department) VALUES ('Eric', 'Charnesky', 'Computer Science');
-INSERT INTO student (first_name, last_name, email) VALUES ('John', 'Doe', 'jdoe@email.com');
-INSERT INTO section (course_id, faculty_id, semester) VALUES (1, 1, 'Winter 2026');
+ 
+INSERT INTO student (name, major) VALUES ('John Doe', 'Computer Science'), ('Sarah Johnson', 'Mathematics');
+INSERT INTO course (code, name, description, credits) VALUES ('CIS2454', 'Full Stack Web Dev', 'Web development with PHP and Node', 3), ('MAT1580', 'Statistics', 'Intro to statistics', 4);
+INSERT INTO faculty (name, email) VALUES ('Eric Charnesky', 'echarnesky@oaklandcc.edu');
+INSERT INTO section (course_code, faculty_id, semester) VALUES ('CIS2454', 1, 'Winter 2026');
 INSERT INTO enrollment (student_id, section_id, grade) VALUES (1, 1, 'A');
